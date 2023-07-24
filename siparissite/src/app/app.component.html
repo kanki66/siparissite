@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+  <mat-toolbar class="justify-between">
+    <button mat-icon-button class="example-icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>NakşEt sipariş</span>
+    <div>
+      <button mat-icon-button class="example-icon">
+        <mat-icon>share</mat-icon>
+      </button>
+    </div>
+
+  </mat-toolbar>
+  <div class="justify-center">
+    <mat-card>
+
+      <table cellspacing="0">
+        <tr>
+          <td><mat-form-field class="example-full-width">
+              <mat-label>Vorname</mat-label>
+              <input matInput [(ngModel)]="firstname" required>
+            </mat-form-field></td>
+          <td><mat-form-field class="example-full-width">
+              <mat-label>Nachname</mat-label>
+              <input matInput [(ngModel)]="lastname" required>
+            </mat-form-field></td>
+        </tr>
+      </table>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Telefonnummer</mat-label>
+        <input matInput [(ngModel)]="phonenumber" required type="tel">
+      </mat-form-field>
+
+      <table cellspacing="0">
+        <tr>
+          <td><mat-form-field>
+              <mat-label>Fleisch</mat-label>
+              <mat-select [(ngModel)]="product_id" name="meet">
+                <mat-option *ngFor="let product of all_products" [value]="product._id">
+                  {{product.name}}, {{product.price}} €/kg
+                </mat-option>
+              </mat-select>
+            </mat-form-field></td>
+          <td><mat-form-field class="example-full-width">
+              <mat-label>kg</mat-label>
+              <input matInput [(ngModel)]="quantity" type="number">
+            </mat-form-field></td>
+          <td><button mat-mini-fab color="primary" (click)="add_chosen_products()" [disabled]="disable_add_product()">
+              <mat-icon>add_shopping_cart</mat-icon>
+            </button></td>
+        </tr>
+      </table>
+      <p> Selected food: {{product_id}} {{quantity}} kg </p>
+
+      <div>
+        <mat-form-field class="example-full-width">
+          <input #minmaxInput matInput [matDatepicker]="picker" [min]="minDate" [matDatepickerFilter]="myFilter"
+            placeholder="Datum für die Bestellung" [(ngModel)]="order_date_for">
+          <mat-datepicker-toggle matSuffix [for]="picker" style="font-size: 29px;"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div align="end">
+        <button mat-flat-button (click)="send_order()" [disabled]="disable_order()">Bestellen</button>
+      </div>
+
+    </mat-card>
+  </div>
+
+
+
+
+
+</body>
+
+</html>

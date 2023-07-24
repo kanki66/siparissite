@@ -11,12 +11,14 @@ import { HttpClientModule  } from '@angular/common/http';
 import { OrderComponent } from './order/order.component';
 import { CustomDateAdapter } from './custom-date-adapter';
 import { DateAdapter } from '@angular/material/core';
+import { ButcherComponent } from './butcher/butcher.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SuccessOrderComponent,
     OrderComponent,
+    ButcherComponent,
   ],
   imports: [
     BrowserModule,

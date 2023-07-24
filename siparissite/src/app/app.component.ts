@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild} from '@angular/core';
+import {MatTable} from '@angular/material/table';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
@@ -7,6 +8,8 @@ import { SuccessOrderComponent } from './success-order/success-order.component';
 interface Products {
   product_id: string;
   quantity: number;
+  name: string;
+  price: number;
 }
 
 @Component({
@@ -24,8 +27,12 @@ export class AppComponent {
   minDate = new Date();
   all_products: any;
   chosen_products: Products[] = [];
-  product_id: string;
+  product: any = {};
   quantity: number;
+
+  displayedColumns: string[] = ['name', 'quantity', 'price'];
+
+  @ViewChild(MatTable) table: MatTable<Products>;
 
   constructor(private http: HttpClient, public dialog: MatDialog) {
     this.get_products();
@@ -55,11 +62,12 @@ export class AppComponent {
       });
       
     let timestamp = new Date()
+
     let order_string = {
       firstname: this.firstname,
       lastname: this.lastname,
       phonenumber: this.phonenumber,
-      products: [{product:"64bcc6428d9dbe2c2120f50e", quantity: 2}],
+      products: this.chosen_products,
       timestamp: timestamp,
       order_date_for: this.order_date_for,      
     }
@@ -67,21 +75,18 @@ export class AppComponent {
     this.http.post("http://localhost:5000/orders/", order_string, {headers})
       .subscribe(data =>{
         console.log(data);
-        this.firstname = "";
-        this.lastname = "";
-        this.phonenumber = "";
-        this.order_date_for = null;
-        this.openSucceed()
+        this.reset_all();
+        this.openSucceed();
         console.log("Bestellt für den " + this.order_date_for.getDate() + '.' + (this.order_date_for.getMonth()+1) + '.' + this.order_date_for.getFullYear())
       })
   }
 
   disable_order() {
-    return !this.firstname || !this.lastname || !this.phonenumber
+    return !this.firstname || !this.lastname || !this.phonenumber || !this.order_date_for
   }
 
   disable_add_product() {
-    return !this.product_id || !this.quantity
+    return !this.product || !this.quantity
   }
 
   get_products() {
@@ -92,8 +97,25 @@ export class AppComponent {
   }
 
   add_chosen_products() {
-    let product: Products = {product_id: this.product_id, quantity: this.quantity};
+    let product: Products = {product_id: this.product._id, quantity: this.quantity, name: this.product.name, price: this.product.price};
     this.chosen_products.push(product);
     console.log(this.chosen_products);
+    this.table.renderRows();
+  }
+
+  remove_chosen_products() {
+    this.table.renderRows();
+  }
+
+  reset_all() {
+    this.firstname = "";
+    this.lastname = "";
+    this.phonenumber = "";
+    this.order_date_for = null;
+    this.chosen_products = [];
+  }
+
+  getTotalCost() {
+    return this.chosen_products.map(t => t.price*t.quantity).reduce((acc, value) => acc + value, 0);
   }
 }

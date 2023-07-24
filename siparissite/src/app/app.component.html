@@ -39,8 +39,8 @@
         <tr>
           <td><mat-form-field>
               <mat-label>Fleisch</mat-label>
-              <mat-select [(ngModel)]="product_id" name="meet">
-                <mat-option *ngFor="let product of all_products" [value]="product._id">
+              <mat-select [(ngModel)]="product" name="meet">
+                <mat-option *ngFor="let product of all_products" [value]="product">
                   {{product.name}}, {{product.price}} €/kg
                 </mat-option>
               </mat-select>
@@ -54,7 +54,27 @@
             </button></td>
         </tr>
       </table>
-      <p> Selected food: {{product_id}} {{quantity}} kg </p>
+
+      <table mat-table [dataSource]="chosen_products" class="example-full-width">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Produkt </th>
+          <td mat-cell *matCellDef="let product"> {{product.name}} </td>
+          <td mat-footer-cell *matFooterCellDef> <b>Gesamtpreis</b> </td>
+        </ng-container>
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef> Menge </th>
+          <td mat-cell *matCellDef="let product"> {{product.quantity}} kg </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef> Preis </th>
+          <td mat-cell *matCellDef="let product"> {{product.price*product.quantity}} € </td>
+          <td mat-footer-cell *matFooterCellDef> <b>{{getTotalCost()}} €</b></td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let order; columns: displayedColumns"></tr>
+        <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+      </table>
 
       <div>
         <mat-form-field class="example-full-width">

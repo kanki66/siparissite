@@ -1,1 +1,63 @@
-<p>butcher works!</p>
+<mat-toolbar class="justify-between">
+  <button mat-icon-button class="example-icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>NakşEt sipariş</span>
+  <div>
+    <button mat-icon-button class="example-icon">
+      <mat-icon>insert_drive_file</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+
+<table mat-table [dataSource]="all_orders" class="mat-elevation-z8" class="example-full-width">
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <ng-container matColumnDef="firstname">
+    <th mat-header-cell *matHeaderCellDef> Vorname </th>
+    <td mat-cell *matCellDef="let element"> {{element.firstname}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="lastname">
+    <th mat-header-cell *matHeaderCellDef> Nachname </th>
+    <td mat-cell *matCellDef="let element"> {{element.lastname}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="phonenumber">
+    <th mat-header-cell *matHeaderCellDef> Telefonnummer </th>
+    <td mat-cell *matCellDef="let element"> {{element.phonenumber}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="products">
+    <th mat-header-cell *matHeaderCellDef> Produkte </th>
+    <td mat-cell *matCellDef="let element">
+      <span *ngFor="let product of element.products" class="justify-between">
+        <div>{{product.quantity}} kg</div>
+        <div>{{product.product_id.name}}</div>
+        <div>{{product.quantity*product.product_id.price}}€</div><br>
+      </span>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef> Gesamtpreis </th>
+    <td mat-cell *matCellDef="let element; let i = index">
+      {{this.getTotalCost(i)}} €</td>
+  </ng-container>
+
+  <ng-container matColumnDef="timestamp">
+    <th mat-header-cell *matHeaderCellDef> Bestellt am </th>
+    <td mat-cell *matCellDef="let element">
+      {{this.show_date(element.timestamp)}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="order_date_for">
+    <th mat-header-cell *matHeaderCellDef> Bestellt für </th>
+    <td mat-cell *matCellDef="let element"> {{this.show_date(element.order_date_for)}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {MatTable} from '@angular/material/table';
 
 @Component({
   selector: 'app-butcher',
@@ -8,7 +9,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class ButcherComponent implements OnInit {
 
-  all_questions:any;
+  displayedColumns: string[] = ['firstname', 'lastname', 'phonenumber', 'products', 'price', 'timestamp', 'order_date_for'];
+
+  all_orders: any;
+
+  @ViewChild(MatTable) table: MatTable<any>;
 
   constructor(private http: HttpClient) {
     this.get_questions();
@@ -18,9 +23,20 @@ export class ButcherComponent implements OnInit {
   }
 
   get_questions() {
-    this.http.get("http://localhost:5000/questions/").subscribe((data:any) =>{
-      console.log(data); 
-      this.all_questions = data.database
+    this.http.get("http://localhost:5000/orders/").subscribe((data:any) =>{      
+      this.all_orders = data.orders
+      console.log(this.all_orders); 
+      this.table.renderRows();
     })
+  }
+
+  show_date(date: Date) {
+    let date_object = new Date(date);
+    console.log(date_object.getFullYear());
+    return date_object.getDate() + '.' + (date_object.getMonth()+1) + '.' + date_object.getFullYear()
+  }
+
+  getTotalCost(index: number) {
+    return this.all_orders[index].products.map(t => t.product_id.price*t.quantity).reduce((acc, value) => acc + value, 0);
   }
 }

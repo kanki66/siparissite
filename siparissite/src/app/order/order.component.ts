@@ -31,7 +31,7 @@ export class OrderComponent {
 
   displayedColumns: string[] = ['name', 'quantity', 'price', 'delete'];
 
-  @ViewChild(MatTable) table: MatTable<Products>;
+  @ViewChild(MatTable) table: MatTable<any>;
 
   constructor(private http: HttpClient, public dialog: MatDialog) {
     this.get_products();

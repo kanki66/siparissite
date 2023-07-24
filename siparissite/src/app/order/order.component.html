@@ -1,3 +1,10 @@
+<mat-toolbar>
+  <button mat-icon-button class="example-icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span class="spacer">NakşEt sipariş</span>
+</mat-toolbar>
+
 <div class="justify-center">
   <mat-card>
 
@@ -5,18 +12,18 @@
       <tr>
         <td><mat-form-field class="example-full-width">
             <mat-label>Vorname</mat-label>
-            <input matInput [(ngModel)]="firstname" required>
+            <input matInput [(ngModel)]="firstname">
           </mat-form-field></td>
         <td><mat-form-field class="example-full-width">
             <mat-label>Nachname</mat-label>
-            <input matInput [(ngModel)]="lastname" required>
+            <input matInput [(ngModel)]="lastname">
           </mat-form-field></td>
       </tr>
     </table>
 
     <mat-form-field class="example-full-width">
       <mat-label>Telefonnummer</mat-label>
-      <input matInput [(ngModel)]="phonenumber" required type="tel">
+      <input matInput [(ngModel)]="phonenumber" type="tel">
     </mat-form-field>
 
     <table cellspacing="0">

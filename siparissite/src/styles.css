@@ -20,3 +20,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 tr.mat-mdc-footer-row td {
   font-weight: bold;
 }
+
+.mat-toolbar {
+  background-color: #c4171d;
+  color: white;
+}
+
+.spacer {
+  flex: 1 1 auto;
+  text-align: center;
+}

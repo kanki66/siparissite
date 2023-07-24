@@ -1,6 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {MatTable} from '@angular/material/table';
+import { environment } from 'src/environments/environment'; 
 
 @Component({
   selector: 'app-butcher',
@@ -23,7 +24,7 @@ export class ButcherComponent implements OnInit {
   }
 
   get_questions() {
-    this.http.get("http://localhost:5000/orders/").subscribe((data:any) =>{      
+    this.http.get(environment.server_URL+"/orders/").subscribe((data:any) =>{      
       this.all_orders = data.orders
       console.log(this.all_orders); 
       this.table.renderRows();

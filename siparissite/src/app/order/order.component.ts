@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import {MatTable} from '@angular/material/table';
+import { environment } from 'src/environments/environment'; 
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {MatDialog} from '@angular/material/dialog';
@@ -71,7 +72,7 @@ export class OrderComponent {
       order_date_for: this.order_date_for,      
     }
 
-    this.http.post("http://localhost:5000/orders/", order_string, {headers})
+    this.http.post(environment.server_URL+"/orders/", order_string, {headers})
       .subscribe(data =>{
         console.log(data);
         this.reset_all();
@@ -89,7 +90,7 @@ export class OrderComponent {
   }
 
   get_products() {
-    this.http.get("http://localhost:5000/products/").subscribe((data:any) =>{
+    this.http.get(environment.server_URL+"/products/").subscribe((data:any) =>{
       console.log(data); 
       this.all_products = data;
     })

@@ -7,3 +7,18 @@
   background-color: #a36760;
   color: white;
 }
+
+#mobile {
+  display: none;
+}
+@media only screen and (max-width: 600px) {
+.mobile-width {
+  width: 100%;
+}
+#desktop {
+  display: none;
+}
+#mobile {
+  display: inline;
+}
+}

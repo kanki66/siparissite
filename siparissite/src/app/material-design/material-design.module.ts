@@ -12,7 +12,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatNativeDateModule } from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTableModule} from '@angular/material/table';
-
+import {MatSortModule} from '@angular/material/sort';
 
 @NgModule({
   declarations: [],
@@ -31,6 +31,7 @@ import {MatTableModule} from '@angular/material/table';
     MatNativeDateModule,
     MatSelectModule,
     MatTableModule,
+    MatSortModule,
   ]
 })
 export class MaterialDesignModule { }

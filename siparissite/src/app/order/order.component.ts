@@ -29,6 +29,7 @@ export class OrderComponent {
   chosen_products: Products[] = [];
   product: any;
   quantity: number;
+  total_price: number;
 
   displayedColumns: string[] = ['name', 'quantity', 'price', 'delete'];
 
@@ -69,15 +70,22 @@ export class OrderComponent {
       phonenumber: this.phonenumber,
       products: this.chosen_products,
       timestamp: timestamp,
-      order_date_for: this.order_date_for,      
+      order_for_date_format: this.order_date_for,
+      order_for_date_string: this.order_date_for.getDate() + '.' + (this.order_date_for.getMonth()+1) + '.' + this.order_date_for.getFullYear(),
+      total_price: this.total_price, 
     }
-
+    console.log(order_string);
     this.http.post(environment.server_URL+"/orders/", order_string, {headers})
-      .subscribe(data =>{
+      .subscribe((data:any) =>{
         console.log(data);
         this.reset_all();
         this.openSucceed();
         console.log("Bestellt für den " + this.order_date_for.getDate() + '.' + (this.order_date_for.getMonth()+1) + '.' + this.order_date_for.getFullYear())
+      },
+      (error) => {                              //Error callback
+        console.error('error caught in component: ' + error)
+        alert('Bestellung war NICHT erfolgreich! Bitte versuchen Sie es später nocheinmal.')
+        //throw error;   //You can also throw the error to a global error handler
       })
   }
 
@@ -93,6 +101,11 @@ export class OrderComponent {
     this.http.get(environment.server_URL+"/products/").subscribe((data:any) =>{
       console.log(data); 
       this.all_products = data;
+    },
+    (error) => {                              //Error callback
+      console.error('error caught in component: ' + error)
+      alert('Produkte konnten nicht geladen werden! Eine Bestellung ist leider nicht möglich.')
+      //throw error;   //You can also throw the error to a global error handler
     })
   }
 
@@ -116,10 +129,12 @@ export class OrderComponent {
     this.phonenumber = "";
     this.order_date_for = null;
     this.chosen_products = [];
+    this.total_price = null;
   }
 
   getTotalCost() {
-    return this.chosen_products.map(t => t.price*t.quantity).reduce((acc, value) => acc + value, 0);
+    this.total_price = Number(this.chosen_products.map(t => t.price*t.quantity).reduce((acc, value) => acc + value, 0).toFixed(2));
+    return this.total_price;
   }
 
 }

@@ -6,9 +6,9 @@
 </mat-toolbar>
 
 <div class="justify-center">
-  <mat-card>
+  <mat-card class="mobile-width">
 
-    <table cellspacing="0">
+    <table cellspacing="0" id="desktop">
       <tr>
         <td><mat-form-field class="example-full-width">
             <mat-label>Vorname</mat-label>
@@ -21,15 +21,26 @@
       </tr>
     </table>
 
+    <div id="mobile">
+      <mat-form-field class="example-full-width">
+        <mat-label>Vorname</mat-label>
+        <input matInput [(ngModel)]="firstname">
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Nachname</mat-label>
+        <input matInput [(ngModel)]="lastname">
+      </mat-form-field>
+    </div>
+
     <mat-form-field class="example-full-width">
       <mat-label>Telefonnummer</mat-label>
       <input matInput [(ngModel)]="phonenumber" type="tel">
     </mat-form-field>
 
-    <table cellspacing="0">
+    <table cellspacing="0" id="desktop">
       <tr>
         <td><mat-form-field>
-            <mat-label>Fleisch</mat-label>
+            <mat-label>Produktauswahl</mat-label>
             <mat-select [(ngModel)]="product" name="meet">
               <mat-option *ngFor="let product of all_products" [value]="product">
                 {{product.name}}, {{product.price}} €/kg
@@ -46,6 +57,27 @@
       </tr>
     </table>
 
+    <div id="mobile">
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Produktauswahl</mat-label>
+        <mat-select [(ngModel)]="product" name="meet">
+          <mat-option *ngFor="let product of all_products" [value]="product">
+            {{product.name}}, {{product.price}} €/kg
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>kg</mat-label>
+        <input matInput [(ngModel)]="quantity" type="number">
+      </mat-form-field>
+      <div style="text-align: right;">
+        <button mat-mini-fab class="green" (click)="add_chosen_products()" [disabled]="disable_add_product()">
+          <mat-icon>add_shopping_cart</mat-icon>
+        </button>
+      </div>
+    </div>
+
     <table mat-table [dataSource]="chosen_products" class="example-full-width">
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Produkt </th>
@@ -59,7 +91,7 @@
       </ng-container>
       <ng-container matColumnDef="price">
         <th mat-header-cell *matHeaderCellDef> Preis </th>
-        <td mat-cell *matCellDef="let product"> {{product.price*product.quantity}} € </td>
+        <td mat-cell *matCellDef="let product"> {{(product.price*product.quantity).toFixed(2)}} € </td>
         <td mat-footer-cell *matFooterCellDef> <b>{{getTotalCost()}} €</b></td>
       </ng-container>
       <ng-container matColumnDef="delete">

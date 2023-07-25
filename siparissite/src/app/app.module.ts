@@ -12,6 +12,7 @@ import { OrderComponent } from './order/order.component';
 import { CustomDateAdapter } from './custom-date-adapter';
 import { DateAdapter } from '@angular/material/core';
 import { ButcherComponent } from './butcher/butcher.component';
+import { ProductsComponent } from './products/products.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { ButcherComponent } from './butcher/butcher.component';
     SuccessOrderComponent,
     OrderComponent,
     ButcherComponent,
+    ProductsComponent,
   ],
   imports: [
     BrowserModule,

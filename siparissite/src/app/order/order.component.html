@@ -78,7 +78,7 @@
       </div>
     </div>
 
-    <table mat-table [dataSource]="chosen_products" class="example-full-width">
+    <table mat-table [dataSource]="chosen_products" class="example-full-width" *ngIf="this.chosen_products.length">
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Produkt </th>
         <td mat-cell *matCellDef="let product"> {{product.name}} </td>
@@ -111,7 +111,7 @@
       <mat-form-field class="example-full-width">
         <input #minmaxInput matInput [matDatepicker]="picker" [min]="minDate" [matDatepickerFilter]="myFilter"
           placeholder="Datum zum Abholen der Bestellung" [(ngModel)]="order_date_for">
-        <mat-datepicker-toggle matSuffix [for]="picker" style="font-size: 29px;"></mat-datepicker-toggle>
+        <mat-datepicker-toggle matSuffix [for]="picker" style="font-size: 25px;"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
     </div>

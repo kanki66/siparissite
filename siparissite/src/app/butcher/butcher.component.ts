@@ -7,6 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { ngxCsv } from 'ngx-csv';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { FormGroup, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-butcher',
@@ -14,11 +15,12 @@ import autoTable from 'jspdf-autotable';
   styleUrls: ['./butcher.component.css']
 })
 export class ButcherComponent implements OnInit {
-
   displayedColumns: string[] = ['firstname', 'lastname', 'phonenumber', 'products', 'total_price', 'order_for_date_string'];
 
   all_orders: any;
   all_orders_export: any;
+  start_date: Date;
+  end_date: Date;
 
   @ViewChild(MatTable) table: MatTable<any>;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -91,6 +93,19 @@ export class ButcherComponent implements OnInit {
 
     autoTable(doc, { head, body });
     doc.save("test.pdf");
+  }
+
+  get_by_date() {
+    this.http.get(environment.server_URL + "/orders/" + this.start_date.toISOString().substr(0, 10) + "/" + this.end_date.toISOString().substr(0, 10)).subscribe((data: any) => {
+      console.log(data);
+    },
+      (error) => {                              //Error callback
+        console.error('error caught in component: ' + error)
+        alert('Daten konnten nicht geladen werden.')
+        //throw error;   //You can also throw the error to a global error handler
+      })
+    console.log(this.start_date.toISOString().substr(0, 10))
+    console.log(this.end_date)
   }
 }
 

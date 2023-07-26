@@ -93,3 +93,13 @@
     </tr>
   </table>
 </div>
+
+<mat-form-field>
+  <mat-date-range-input [rangePicker]="picker">
+    <input matStartDate placeholder="Von" [(ngModel)]="start_date">
+    <input matEndDate placeholder="Bis" [(ngModel)]="end_date">
+  </mat-date-range-input>
+  <mat-datepicker-toggle matSuffix [for]="picker" style="font-size: 25px;"></mat-datepicker-toggle>
+  <mat-date-range-picker #picker></mat-date-range-picker>
+</mat-form-field>
+<button mat-menu-item (click)="get_by_date()">Test</button>

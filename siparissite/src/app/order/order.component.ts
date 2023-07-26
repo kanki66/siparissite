@@ -1,9 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import {MatTable} from '@angular/material/table';
-import { environment } from 'src/environments/environment'; 
+import { MatTable } from '@angular/material/table';
+import { environment } from 'src/environments/environment';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { SuccessOrderComponent } from '../success-order/success-order.component';
 
 interface Products {
@@ -56,12 +56,12 @@ export class OrderComponent {
 
   send_order() {
     let headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Headers': 'Content-Type, X-Auth-Token, Origin, Authorization',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST,GET,OPTIONS,PUT,DELETE'
-      });
-      
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Headers': 'Content-Type, X-Auth-Token, Origin, Authorization',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST,GET,OPTIONS,PUT,DELETE'
+    });
+
     let timestamp = new Date()
 
     let order_string = {
@@ -71,22 +71,22 @@ export class OrderComponent {
       products: this.chosen_products,
       timestamp: timestamp,
       order_for_date_format: this.order_date_for,
-      order_for_date_string: this.order_date_for.getDate() + '.' + (this.order_date_for.getMonth()+1) + '.' + this.order_date_for.getFullYear(),
-      total_price: this.total_price, 
+      order_for_date_string: this.order_date_for.getDate() + '.' + (this.order_date_for.getMonth() + 1) + '.' + this.order_date_for.getFullYear(),
+      total_price: this.total_price,
     }
     console.log(order_string);
-    this.http.post(environment.server_URL+"/orders/", order_string, {headers})
-      .subscribe((data:any) =>{
+    this.http.post(environment.server_URL + "/orders/", order_string, { headers })
+      .subscribe((data: any) => {
         console.log(data);
         this.reset_all();
         this.openSucceed();
-        console.log("Bestellt für den " + this.order_date_for.getDate() + '.' + (this.order_date_for.getMonth()+1) + '.' + this.order_date_for.getFullYear())
+        console.log("Bestellt für den " + this.order_date_for.getDate() + '.' + (this.order_date_for.getMonth() + 1) + '.' + this.order_date_for.getFullYear())
       },
-      (error) => {                              //Error callback
-        console.error('error caught in component: ' + error)
-        alert('Bestellung war NICHT erfolgreich! Bitte versuchen Sie es später nocheinmal.')
-        //throw error;   //You can also throw the error to a global error handler
-      })
+        (error) => {                              //Error callback
+          console.error('error caught in component: ' + error)
+          alert('Bestellung war NICHT erfolgreich! Bitte versuchen Sie es später nocheinmal.')
+          //throw error;   //You can also throw the error to a global error handler
+        })
   }
 
   disable_order() {
@@ -98,24 +98,24 @@ export class OrderComponent {
   }
 
   get_products() {
-    this.http.get(environment.server_URL+"/products/").subscribe((data:any) =>{
-      console.log(data); 
+    this.http.get(environment.server_URL + "/products/").subscribe((data: any) => {
+      console.log(data);
       this.all_products = data;
     },
-    (error) => {                              //Error callback
-      console.error('error caught in component: ' + error)
-      alert('Produkte konnten nicht geladen werden! Eine Bestellung ist leider nicht möglich.')
-      //throw error;   //You can also throw the error to a global error handler
-    })
+      (error) => {                              //Error callback
+        console.error('error caught in component: ' + error)
+        alert('Produkte konnten nicht geladen werden! Eine Bestellung ist leider nicht möglich.')
+        //throw error;   //You can also throw the error to a global error handler
+      })
   }
 
   add_chosen_products() {
-    let product: Products = {product_id: this.product._id, quantity: this.quantity, name: this.product.name, price: this.product.price};
+    let product: Products = { product_id: this.product._id, quantity: this.quantity, name: this.product.name, price: this.product.price };
     this.chosen_products.push(product);
     console.log(this.chosen_products);
-    this.table.renderRows();
     this.product = null;
     this.quantity = null;
+    this.table.renderRows();
   }
 
   remove_chosen_products(index: number) {
@@ -133,7 +133,7 @@ export class OrderComponent {
   }
 
   getTotalCost() {
-    this.total_price = Number(this.chosen_products.map(t => t.price*t.quantity).reduce((acc, value) => acc + value, 0).toFixed(2));
+    this.total_price = Number(this.chosen_products.map(t => t.price * t.quantity).reduce((acc, value) => acc + value, 0).toFixed(2));
     return this.total_price;
   }
 

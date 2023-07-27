@@ -44,8 +44,10 @@ export class OrderComponent {
 
   dateFilter = (d: Date | null): boolean => {
     const day = (d || new Date()).getDay();
-
-    return (day == 6);// && (this.getWeekNumber((d || new Date())) % 2 == 0); 
+    if (this.getWeekNumber(new Date()) % 2 == 0 && (this.checkSaturday().toDateString() == d.toDateString())) {
+      return false;
+    }
+    return (day == 6) && (this.getWeekNumber((new Date(d))) % 2 == 0);
     // 1 means monday, 0 means sunday, etc.
   };
 
@@ -58,6 +60,18 @@ export class OrderComponent {
     // Adjust to Thursday in week 1 and count number of weeks from date to week1.
     return 1 + Math.round(((_date.getTime() - week1.getTime()) / 86400000
       - 3 + (week1.getDay() + 6) % 7) / 7);
+  }
+
+  checkSaturday() {
+    let today = new Date();
+    let saturday = new Date();
+    saturday.setDate(today.getDate() + (6 - today.getDay()));
+    saturday.setHours(0);
+    saturday.setMinutes(0);
+    saturday.setSeconds(0);
+    saturday.setMilliseconds(0);
+
+    return saturday;
   }
 
   openSucceed() {

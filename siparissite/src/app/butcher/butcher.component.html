@@ -8,17 +8,17 @@
       <mat-icon>insert_drive_file</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="export_to_csv()">
+      <!-- <button mat-menu-item (click)="export_to_csv()">
         <mat-icon>insert_drive_file</mat-icon>
         <span>speichern als .csv NOT</span>
-      </button>
+      </button> -->
       <button mat-menu-item (click)="exporter.exportTable('csv', {fileName:'bestellungen'})">
         <mat-icon>insert_drive_file</mat-icon>
         <span>speichern als CSV</span>
       </button>
       <button mat-menu-item (click)="exporter.exportTable('xlsx', {fileName:'bestellungen'})">
         <mat-icon>insert_drive_file</mat-icon>
-        <span>speichern als xlsx</span>
+        <span>speichern als EXCEL</span>
       </button>
       <button mat-menu-item (click)="SavePDF()">
         <mat-icon>insert_drive_file</mat-icon>

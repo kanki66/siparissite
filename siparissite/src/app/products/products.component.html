@@ -1,1 +1,26 @@
-<p>products works!</p>
+<mat-toolbar class="justify-between">
+  <button mat-icon-button>
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>NakşEt sipariş</span>
+  <div>
+    <button mat-icon-button>
+      <mat-icon>add_circle</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+
+<mat-list>
+  <mat-card *ngFor="let product of all_products; let IndexVar=index">
+    <mat-card-header>
+      <mat-card-title>{{product.name}}</mat-card-title>
+      <mat-card-subtitle>{{product.price}}</mat-card-subtitle>
+      <div align="end">
+        <button mat-icon-button (click)="deleteProduct(IndexVar)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </mat-card-header>
+
+  </mat-card>
+</mat-list>

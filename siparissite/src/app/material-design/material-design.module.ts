@@ -15,6 +15,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableExporterModule } from 'mat-table-exporter';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [],
@@ -36,6 +38,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatSortModule,
     MatTableExporterModule,
     MatMenuModule,
+    MatSidenavModule,
+    MatListModule
   ]
 })
 export class MaterialDesignModule { }

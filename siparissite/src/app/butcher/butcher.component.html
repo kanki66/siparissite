@@ -80,7 +80,7 @@
   </ng-container> -->
 
     <ng-container matColumnDef="order_for_date_string">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Bestellt für für Datum</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Bestellt für Datum</th>
       <td mat-cell *matCellDef="let element"> {{element.order_for_date_string}} </td>
     </ng-container>
 
@@ -93,7 +93,7 @@
     </tr>
   </table>
 </div>
-
+<!-- 
 <mat-form-field>
   <mat-date-range-input [rangePicker]="picker">
     <input matStartDate placeholder="Von" [(ngModel)]="start_date">
@@ -102,4 +102,4 @@
   <mat-datepicker-toggle matSuffix [for]="picker" style="font-size: 25px;"></mat-datepicker-toggle>
   <mat-date-range-picker #picker></mat-date-range-picker>
 </mat-form-field>
-<button mat-menu-item (click)="get_by_date()">Test</button>
+<button mat-menu-item (click)="get_by_date()">Test</button> -->

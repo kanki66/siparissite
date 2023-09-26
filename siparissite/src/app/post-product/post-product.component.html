@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Produkt hinzufügen</h1>
+<div>
+  <mat-form-field class="example-full-width">
+    <mat-label>Bezeichnung</mat-label>
+    <input matInput [(ngModel)]="data.product_name">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <mat-label>Preis</mat-label>
+    <input matInput [(ngModel)]="data.product_price" type="number">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close color="warn">Abbrechen</button>
+  <button mat-button [mat-dialog-close]="data">Hinzufügen</button>
+</div>

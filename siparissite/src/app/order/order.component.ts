@@ -74,10 +74,6 @@ export class OrderComponent {
     return saturday;
   }
 
-  openSucceed() {
-    this.dialog.open(SuccessOrderComponent);
-  }
-
   send_order() {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -103,7 +99,9 @@ export class OrderComponent {
       .subscribe((data: any) => {
         console.log(data);
         this.reset_all();
-        this.openSucceed();
+        this.dialog.open(SuccessOrderComponent, {
+          data: { html_text: "Ihre Bestellung war erfolgreich!", },
+        });
         console.log("Bestellt für den " + this.order_date_for.getDate() + '.' + (this.order_date_for.getMonth() + 1) + '.' + this.order_date_for.getFullYear())
       },
         (error) => {                              //Error callback

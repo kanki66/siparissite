@@ -30,3 +30,23 @@ tr.mat-mdc-footer-row td {
   flex: 1 1 auto;
   text-align: center;
 }
+
+.order {
+  background-color: #a36760;
+  color: white;
+}
+
+#mobile {
+  display: none;
+}
+@media only screen and (max-width: 600px) {
+.mobile-width {
+  width: 100%;
+}
+#desktop {
+  display: none;
+}
+#mobile {
+  display: inline;
+}
+}

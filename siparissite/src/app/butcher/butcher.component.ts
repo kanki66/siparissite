@@ -69,7 +69,7 @@ export class ButcherComponent implements OnInit {
       noDownload: false,
       showTitle: false,
       useBom: false,
-      headers: ['Vorname', 'Nachname', 'Telefonnummer', 'Produkte', 'Gesamtpreis', 'Bestellt für Datum'],
+      headers: ['Vorname', 'Nachname', 'Telefonnummer', 'Produkte', 'Gesamtpreis', 'Bestellt für den'],
     }
 
     new ngxCsv(this.all_orders_export, "bestellungen_", options);
@@ -78,13 +78,18 @@ export class ButcherComponent implements OnInit {
   SavePDF(): void {
     let doc = new jsPDF('landscape', 'px', 'a4');
 
-    let head = [['Vorname', 'Nachname', 'Telefonnummer', 'Produkte', 'Gesamtpreis', 'Bestellt für Datum']];
+    let head = [['Vorname', 'Nachname', 'Telefonnummer', 'Produkte', 'Gesamtpreis in €', 'Bestellt für den']];
     let body = []
     this.all_orders_export.forEach(function (order) {
       let data = [order.firstname, order.lastname, order.phonenumber]
       let prod: string = '';
       order.products.forEach(function (product) {
-        prod = prod + product.quantity.toString() + ' kg ' + product.product_id.name + '\n';
+        if (product.product_id) {
+          prod = prod + product.quantity.toString() + ' kg ' + product.product_id.name + '\n';
+        }
+        else {
+          prod = prod + 'Gelöschtes Produkt'
+        }
       })
 
       data.push(prod, order.total_price, order.order_for_date_string)

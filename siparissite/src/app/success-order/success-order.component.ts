@@ -1,4 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+
+export interface DialogData {
+  html_text: string;
+}
 
 @Component({
   selector: 'app-success-order',
@@ -7,4 +12,9 @@ import { Component } from '@angular/core';
 })
 export class SuccessOrderComponent {
 
+  html_text: string;
+
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+  ) { }
 }

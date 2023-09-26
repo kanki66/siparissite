@@ -13,6 +13,8 @@ import { CustomDateAdapter } from './custom-date-adapter';
 import { DateAdapter } from '@angular/material/core';
 import { ButcherComponent } from './butcher/butcher.component';
 import { ProductsComponent } from './products/products.component';
+import { PostProductComponent } from './post-product/post-product.component';
+import { DeleteSomethingComponent } from './delete-something/delete-something.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { ProductsComponent } from './products/products.component';
     OrderComponent,
     ButcherComponent,
     ProductsComponent,
+    PostProductComponent,
+    DeleteSomethingComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  server_URL: "http://ficuscoding.duckdns.org:5000"
+  server_URL: "https://naksdb.ficus-coding.de"
 };

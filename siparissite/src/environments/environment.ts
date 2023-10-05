@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  server_URL: "http://localhost:5000"
+  server_URL: "https://naksdb.ficus-coding.de"
 };
 
 /*

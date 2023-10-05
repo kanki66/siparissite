@@ -8,6 +8,7 @@ import { ngxCsv } from 'ngx-csv';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { FormGroup, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { env } from 'process';
 
 @Component({
   selector: 'app-butcher',
@@ -43,6 +44,7 @@ export class ButcherComponent implements OnInit {
     },
       (error) => {                              //Error callback
         console.error('error caught in component: ' + error)
+        console.error('used URL: ' + environment.server_URL)
         alert('Daten konnten nicht geladen werden.')
         //throw error;   //You can also throw the error to a global error handler
       })
